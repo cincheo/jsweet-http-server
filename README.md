@@ -6,6 +6,8 @@ It comes also with a small JSweet client, which is the JSweet sandbox available 
 
 ## How to use
 
+Here is a basic client written in JSweet:
+
 ```java
 import static jsweet.dom.Globals.console;
 import jsweet.dom.FormData;
@@ -24,9 +26,12 @@ public class JSweetClient {
 			JSweetServerTranspilationResponse response = (JSweetServerTranspilationResponse) JSON
 					.parse(currentRequest.responseText);
 			if (response.success) {
-  			String jsContent = response.jsout;
-	  		String tsContent = response.tsout;
-  			[...]
+				// JavaScript output
+  				String jsContent = response.jsout;
+				// TypeScript output
+				String tsContent = response.tsout;
+				// do whatever with the result
+				[...]
 			}
 			return null;
 		};
