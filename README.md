@@ -1,6 +1,6 @@
 # JSweet HTTP Server
 
-This project provides light HTTP server with a JSON Rest Web API to run the JSweet transpiler from any client, without having to install JSweet locally.
+This project provides light HTTP server with a JSON Rest Web API to run the [JSweet transpiler](https://github.com/cincheo/jsweet) from any client, without having to install JSweet locally.
 
 The server is built with [NanoHttpd](https://github.com/NanoHttpd/nanohttpd).
 
