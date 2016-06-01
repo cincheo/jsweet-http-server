@@ -4,9 +4,13 @@ This project provides light HTTP server with a JSON Rest Web API to run the JSwe
 
 The server is built with [NanoHttpd](https://github.com/NanoHttpd/nanohttpd).
 
-It comes also with a small JSweet client, which is the JSweet sandbox available at http://www.jsweet.org/jsweet-live-sandbox/. JSweet provides a default Web Service, which is publically available: http://sandbox.jsweet.org/transpile.
+It comes also with a small JSweet client, which is the JSweet sandbox. You can try it live at http://www.jsweet.org/jsweet-live-sandbox/. 
 
 ## How to use
+
+To transpile a file from Java to TypeScript or JavaScript, one must invoke the ``transpile`` Web Service on the JSweet server.
+
+The JSweet team has publically available server at: http://sandbox.jsweet.org.
 
 Here is a basic client written in JSweet:
 
@@ -19,7 +23,8 @@ import jsweet.lang.Math;
 [...]
 
 public class JSweetClient {
-	static final String SERVER_URL = ...;
+	// use your own server if you need to
+	static final String SERVER_URL = "http://sandbox.jsweet.org";
 	public static void doInvoke() { 
 		// the actual service invocation
 		XMLHttpRequest currentRequest = new XMLHttpRequest();
@@ -58,6 +63,8 @@ public class JSweetClient {
 ```
 
 # Build and run the server
+
+Before compiling, you can edit the ``pom.xml`` to add dependencies to your server, so that your service can transpile code using any of the available candies listed [here](http://www.jsweet.org/candies-releases/).
 
 To compile the server, use Maven in the project's directory:
 
