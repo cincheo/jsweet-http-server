@@ -20,6 +20,7 @@ import jsweet.dom.FormData;
 import jsweet.dom.XMLHttpRequest;
 import jsweet.lang.JSON;
 import jsweet.lang.Math;
+import org.jsweet.JSweetServerTranspilationResponse;
 [...]
 
 public class JSweetClient {
