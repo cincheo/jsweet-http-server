@@ -1,10 +1,10 @@
-# JSweet server
+# JSweet Web Service
 
 This project provides a JSON Rest Web API to run the JSweet transpiler from any client, without having to install JSweet locally.
 
 It comes also with a small JSweet client, which is the JSweet sandbox available at http://www.jsweet.org/jsweet-live-sandbox/. JSweet provides a default Web Service, which is publically available: http://sandbox.jsweet.org/transpile.
 
-# How to use
+## How to use
 
 ```java
 import static jsweet.dom.Globals.console;
@@ -15,10 +15,11 @@ import jsweet.lang.Math;
 [...]
 
 public class JSweetClient {
-  public static void doInvoke() { 
-    // the actual service invocation
+	static final String SERVER_URL = ...;
+	public static void doInvoke() { 
+		// the actual service invocation
 		XMLHttpRequest currentRequest = new XMLHttpRequest();
-		currentRequest.open("POST", SERVICE_URL, true);
+		currentRequest.open("POST", SERVER_URL + "/transpile", true);
 		currentRequest.onload = (e) -> {
 			JSweetServerTranspilationResponse response = (JSweetServerTranspilationResponse) JSON
 					.parse(currentRequest.responseText);
