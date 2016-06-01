@@ -10,7 +10,7 @@ It comes also with a small JSweet client, which is the JSweet sandbox. You can t
 
 To transpile a file from Java to TypeScript or JavaScript, one must invoke the ``transpile`` Web Service on the JSweet server.
 
-The JSweet team has publicly available server at: http://sandbox.jsweet.org.
+The JSweet team has a publicly available server at: http://sandbox.jsweet.org.
 
 Here is a basic client written in JSweet:
 
@@ -77,6 +77,8 @@ To run the service under Unix-based OS (would need to be adapted for other OS):
 ```
 > ./run.sh
 ```
+
+NOTE: for the JSweet transpiler to work, you will need to make sure that Node.js is installed on the server. For more information, go to https://github.com/cincheo/jsweet.
 
 # Build and run the client
 
