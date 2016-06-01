@@ -1,6 +1,8 @@
-# JSweet Web Service
+# JSweet HTTP Server
 
-This project provides a JSON Rest Web API to run the JSweet transpiler from any client, without having to install JSweet locally.
+This project provides light HTTP server with a JSON Rest Web API to run the JSweet transpiler from any client, without having to install JSweet locally.
+
+The server is built with [NanoHttpd](https://github.com/NanoHttpd/nanohttpd).
 
 It comes also with a small JSweet client, which is the JSweet sandbox available at http://www.jsweet.org/jsweet-live-sandbox/. JSweet provides a default Web Service, which is publically available: http://sandbox.jsweet.org/transpile.
 
