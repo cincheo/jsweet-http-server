@@ -89,8 +89,8 @@ To compile the client, use Maven in the project's directory:
 mvn -P client generate-sources
 ```
 
-Start the client:
+Start the client (will open ``www/index.html``):
 
 ```
-> firefox www/index.html
+> firefox <SERVER_URL>
 ```
