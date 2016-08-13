@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.jsweet</groupId>
-	<artifactId>jsweet-live-sandbox</artifactId>
+	<artifactId>jsweet-http-server</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
 	<name>JSweet live sandbox</name>
@@ -42,13 +42,6 @@
 			<id>jsweet-snapshots</id>
 			<name>libs-snapshot</name>
 			<url>http://repository.jsweet.org/artifactory/libs-snapshot-local</url>
-		</repository>
-		<repository>
-			<releases />
-			<snapshots />
-			<id>cincheo</id>
-			<name>cincheo</name>
-			<url>http://repository.jsweet.org/artifactory/cincheo</url>
 		</repository>
 	</repositories>
 	<pluginRepositories>
