@@ -46,7 +46,10 @@ To run the service under Unix-based OS (would need to be adapted for other OS):
 
 # Extend the server with your own libs / classes
 
-In order to compile Java source code that uses external libs without compile-time errors, you can add dependencies in your ``pom.xml``. Your can also simple add source code in the ``src/main/java`` directory of the server.
+In order to compile Java source code that uses external libs without Java compile-time errors, you can add dependencies in your ``pom.xml``. Your can also simple add source code in the ``src/main/java`` directory of the server.
+
+Note that the TypeScript to JavaScript transpilation step will fail if you don't have the right TypeScript definition files. 
+In order to avoid failure to generate JavaScript without the appropriate TypeScript definitions, you should switch the ``ignoreTypeScriptErrors`` option to true.
 
 # Use the DLite UI to call the server
 
