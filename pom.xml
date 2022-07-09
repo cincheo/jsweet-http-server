@@ -105,6 +105,33 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<mainClass>org.jsweet.webapi.ServerLauncher</mainClass>
+						</manifest>
+					</archive>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+					<finalName>jsweet-server</finalName>
+					<appendAssemblyId>false</appendAssemblyId>
+				</configuration>
+				<executions>
+					<execution>
+						<id>make-assembly</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
 		</plugins>
 	</build>
 	<dependencies>
@@ -127,12 +154,6 @@
 			<groupId>org.jsweet</groupId>
 			<artifactId>jsweet-core</artifactId>
 			<version>6.0.6</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.firstinspires.ftc/RobotCore -->
-		<dependency>
-			<groupId>org.firstinspires.ftc</groupId>
-			<artifactId>RobotCore</artifactId>
-			<version>7.1.0</version>
 		</dependency>
 		<!-- Compile-time only dependency (JSweet looks up installed JDK at runtime
 			to conform to legal obligations) -->

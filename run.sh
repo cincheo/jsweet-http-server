@@ -1,3 +1,3 @@
 #!/bin/bash
 
-nohup java -cp "bin/*" org.jsweet.webapi.ServerLauncher &
+nohup java -jar target/jsweet-server.jar &

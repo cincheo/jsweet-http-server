@@ -11,12 +11,19 @@
           "label": "Index"
         }
       ],
-      "eventHandlers": []
+      "eventHandlers": [],
+      "hidden": true
     },
     "autoIncrementIds": {
       "TextareaView": 2,
       "ButtonView": 2,
-      "HttpConnector": 2
+      "HttpConnector": 2,
+      "SplitView": 1,
+      "ContainerView": 3,
+      "CheckboxView": 2,
+      "TextView": 1,
+      "SelectView": 2,
+      "TableView": 1
     },
     "name": "jsweet-demo",
     "bootstrapStylesheetUrl": "assets/ext/themes/slate.css",
@@ -36,7 +43,8 @@
           "label": "Index"
         }
       ],
-      "eventHandlers": []
+      "eventHandlers": [],
+      "hidden": true
     },
     {
       "cid": "index",
@@ -53,102 +61,237 @@
           "baseUrl": "http://localhost:8580",
           "path": "transpile",
           "form": true,
-          "body": "=({\n    javaCode: $d('textarea-0'),\n    tid: $tools.uuid(),\n    tsout: true\n})"
+          "body": "=({\n    javaCode: $d('textarea-0'),\n    tid: $tools.uuid(),\n    tsout: true,\n    ignoreJavaErrors: $d('options').ignoreJavaErrors,\n    ignoreTypeScriptErrors: $d('options').ignoreTypeScriptErrors,\n    targetVersion: $d('options').targetVersion,\n    moduleKind: $d('options').moduleKind\n})"
         },
         {
-          "cid": "textarea-0",
-          "type": "TextareaView",
-          "dataType": "string",
-          "label": "",
-          "description": "",
-          "field": "",
-          "size": "default",
-          "disabled": false,
-          "placeholder": "",
-          "eventHandlers": [],
-          "codeEditor": true,
-          "mode": "java",
-          "showLineNumbers": true
-        },
-        {
-          "cid": "button-0",
-          "type": "ButtonView",
-          "dataSource": "$parent",
-          "label": "Transpile",
-          "buttonType": "button",
-          "variant": "secondary",
-          "size": "default",
-          "pill": false,
-          "squared": false,
-          "block": false,
-          "disabled": false,
-          "eventHandlers": [
+          "cid": "options",
+          "type": "ContainerView",
+          "dataType": "object",
+          "layout": "block",
+          "components": [
             {
-              "global": false,
-              "name": "@click",
-              "actions": [
-                {
-                  "targetId": "http-0",
-                  "name": "update",
-                  "description": "Default action",
-                  "condition": ""
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "cid": "textarea-1",
-          "type": "TextareaView",
-          "dataType": "string",
-          "label": "",
-          "description": "",
-          "field": "jsout",
-          "size": "default",
-          "disabled": false,
-          "placeholder": "",
-          "eventHandlers": [],
-          "dataSource": "http-0",
-          "codeEditor": true,
-          "mode": "javascript",
-          "showLineNumbers": true
-        },
-        {
-          "cid": "button-1",
-          "type": "ButtonView",
-          "dataSource": "$parent",
-          "label": "Run",
-          "buttonType": "button",
-          "variant": "secondary",
-          "size": "default",
-          "pill": false,
-          "squared": false,
-          "block": false,
-          "disabled": false,
-          "eventHandlers": [
+              "cid": "checkbox-0",
+              "type": "CheckboxView",
+              "dataType": "boolean",
+              "label": "Ignore Java errors",
+              "size": "sm",
+              "description": "",
+              "field": "ignoreJavaErrors",
+              "disabled": false,
+              "switch": true,
+              "eventHandlers": [],
+              "dataSource": "$parent",
+              "hidden": null,
+              "horizontalLayout": true
+            },
             {
-              "global": false,
-              "name": "@click",
-              "actions": [
-                {
-                  "targetId": "$self",
-                  "name": "eval",
-                  "description": "Default action",
-                  "condition": "eval($d('textarea-1'))"
-                }
-              ]
+              "cid": "checkbox-1",
+              "type": "CheckboxView",
+              "dataType": "boolean",
+              "label": "Ignore TypeScript errors",
+              "size": "sm",
+              "description": "",
+              "field": "ignoreTypeScriptErrors",
+              "disabled": false,
+              "switch": true,
+              "eventHandlers": [],
+              "dataSource": "$parent",
+              "horizontalLayout": true
+            },
+            {
+              "cid": "select-0",
+              "type": "SelectView",
+              "label": "Target version",
+              "size": "sm",
+              "description": "",
+              "field": "targetVersion",
+              "disabled": false,
+              "options": "=['es3', 'es5', 'es6']",
+              "eventHandlers": [],
+              "dataSource": "$parent",
+              "defaultValue": "",
+              "horizontalLayout": true
+            },
+            {
+              "cid": "select-1",
+              "type": "SelectView",
+              "label": "Module kind",
+              "size": "sm",
+              "description": "",
+              "field": "moduleKind",
+              "disabled": false,
+              "options": "=['none', 'commonjs', 'amd', 'system', 'umd', 'es2015']",
+              "eventHandlers": [],
+              "dataSource": "$parent",
+              "defaultValue": "",
+              "horizontalLayout": true
             }
-          ]
+          ],
+          "defaultValue": "={\n    targetVersion: 'es6',\n    moduleKind: 'none'\n}",
+          "eventHandlers": [],
+          "direction": "row",
+          "style": "gap: 1rem"
+        },
+        {
+          "cid": "split-0",
+          "type": "SplitView",
+          "orientation": "VERTICAL",
+          "primaryComponent": {
+            "cid": "container-1",
+            "type": "ContainerView",
+            "dataType": "object",
+            "layout": "block",
+            "components": [
+              {
+                "cid": "textarea-0",
+                "type": "TextareaView",
+                "dataType": "string",
+                "label": "",
+                "description": "",
+                "field": "",
+                "size": "default",
+                "disabled": false,
+                "placeholder": "Coucou",
+                "eventHandlers": [],
+                "codeEditor": true,
+                "mode": "java",
+                "showLineNumbers": true,
+                "rows": "20",
+                "class": "",
+                "maxRows": "100"
+              },
+              {
+                "cid": "button-0",
+                "type": "ButtonView",
+                "dataSource": "$parent",
+                "label": "Transpile",
+                "buttonType": "button",
+                "variant": "secondary",
+                "size": "default",
+                "pill": false,
+                "squared": false,
+                "block": false,
+                "disabled": false,
+                "eventHandlers": [
+                  {
+                    "global": false,
+                    "name": "@click",
+                    "actions": [
+                      {
+                        "targetId": "http-0",
+                        "name": "update",
+                        "description": "Default action",
+                        "condition": ""
+                      }
+                    ]
+                  }
+                ],
+                "icon": "gear-wide-connected",
+                "class": "",
+                "layoutStyle": "",
+                "layoutClass": ""
+              }
+            ],
+            "defaultValue": "={}",
+            "eventHandlers": [],
+            "fillHeight": true
+          },
+          "secondaryComponent": {
+            "cid": "container-2",
+            "type": "ContainerView",
+            "dataType": "object",
+            "layout": "block",
+            "components": [
+              {
+                "cid": "textarea-1",
+                "type": "TextareaView",
+                "dataType": "string",
+                "label": "",
+                "description": "",
+                "field": "jsout",
+                "size": "default",
+                "disabled": false,
+                "placeholder": "",
+                "eventHandlers": [],
+                "dataSource": "http-0",
+                "codeEditor": true,
+                "mode": "javascript",
+                "showLineNumbers": true,
+                "rows": "20",
+                "hidden": "=!$d('http-0').success"
+              },
+              {
+                "cid": "table-0",
+                "type": "TableView",
+                "dataType": "array",
+                "selectMode": "single",
+                "selectable": true,
+                "striped": false,
+                "hover": true,
+                "small": false,
+                "fields": [],
+                "perPage": "0",
+                "defaultValue": "=",
+                "eventHandlers": [],
+                "dataSource": "http-0",
+                "field": "",
+                "mapper": "dataModel.errors.map(e => ({error: e}))",
+                "hidden": "=$d('http-0').success"
+              },
+              {
+                "cid": "button-1",
+                "type": "ButtonView",
+                "dataSource": "$parent",
+                "label": "Run",
+                "buttonType": "button",
+                "variant": "secondary",
+                "size": "default",
+                "pill": false,
+                "squared": false,
+                "block": false,
+                "disabled": false,
+                "eventHandlers": [
+                  {
+                    "global": false,
+                    "name": "@click",
+                    "actions": [
+                      {
+                        "targetId": "$self",
+                        "name": "eval",
+                        "description": "Default action",
+                        "condition": "eval($d('textarea-1'))"
+                      }
+                    ]
+                  }
+                ],
+                "icon": "play-btn-fill",
+                "hidden": "=$d('http-0').success"
+              }
+            ],
+            "defaultValue": "={}",
+            "eventHandlers": []
+          },
+          "eventHandlers": [],
+          "fillHeight": true
         }
       ],
       "defaultValue": "={}",
-      "eventHandlers": []
+      "eventHandlers": [],
+      "fillHeight": true
     },
     {
       "cid": "http-1",
       "type": "HttpConnector",
       "dataType": "object",
       "method": "GET",
+      "eventHandlers": []
+    },
+    {
+      "cid": "text-0",
+      "type": "TextView",
+      "dataType": "string",
+      "tag": "div",
+      "text": "                        maxLines: this.$eval(this.viewModel.maxRows, undefined) ? this.$eval(this.viewModel.maxRows) : 10\n",
       "eventHandlers": []
     }
   ]

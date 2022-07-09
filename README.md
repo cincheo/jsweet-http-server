@@ -8,89 +8,60 @@ It comes also with a small JSweet client, which is the JSweet sandbox. You can t
 
 ## How to use
 
-To transpile a file from Java to TypeScript or JavaScript, one must invoke the ``transpile`` Web Service on the JSweet server.
+To transpile a file from Java to TypeScript or JavaScript, one must invoke the ``transpile`` REST endpoint on the JSweet server.
 
-The JSweet team has a publicly available server at: http://sandbox.jsweet.org.
-
-Here is a basic client written in JSweet:
-
-```java
-import static jsweet.dom.Globals.console;
-import jsweet.dom.FormData;
-import jsweet.dom.XMLHttpRequest;
-import jsweet.lang.JSON;
-import jsweet.lang.Math;
-import org.jsweet.JSweetServerTranspilationResponse;
-[...]
-
-public class JSweetClient {
-	// use your own server if you need to
-	static final String SERVER_URL = "http://sandbox.jsweet.org";
-	public static void doInvoke() { 
-		// the actual service invocation
-		XMLHttpRequest currentRequest = new XMLHttpRequest();
-		currentRequest.open("POST", SERVER_URL + "/transpile", true);
-		currentRequest.onload = (e) -> {
-			JSweetServerTranspilationResponse response = (JSweetServerTranspilationResponse) JSON
-					.parse(currentRequest.responseText);
-			if (response.success) {
-				// JavaScript output
-  				String jsContent = response.jsout;
-				// TypeScript output
-				String tsContent = response.tsout;
-				// do whatever with the result
-				[...]
-			}
-			return null;
-		};
-		currentRequest.onerror = (e) -> {
-		  [...]
-			return null;
-		};
-		FormData data = new FormData();
-		// here the actual code to transpile
-		data.append("javaCode", "public class C {}");
-		// should be unique
-		data.append("tid", "" + Math.random());
-		// set to false if you only want the JavaScript output
-		data.append("tsout", "true");
-		try {
-			currentRequest.send(data);
-		} catch (Exception requestError) {
-			console.error(requestError);
-		}
-	}
+- base url: http://localhost:8580 (for local installation)
+- path: transpile
+- method: POST
+- body (form data) (see JSweet documentation of a complete list of values to be passed)
+```json
+{
+    "javaCode": ...,
+    "tid": <unique uuid>,
+    "tsout": false/true,
+    "ignoreJavaErrors": false/true,
+    "ignoreTypeScriptErrors": false/true,
+    "targetVersion": es6/...,
+    "moduleKind": none/commonjs/...
 }
-```
+``` 
 
-# Build and run the server
+# Build and run the server (for JSweet v2.4 and JDK 8)
 
-Before compiling, you can edit the ``pom.xml`` to add dependencies to your server, so that your service can transpile code using any of the available candies listed [here](http://www.jsweet.org/candies-releases/).
+PREREQUISITE 1: for the JSweet transpiler to work, you will need to make sure that Node.js is installed on the server. For more information, go to https://github.com/cincheo/jsweet
+
+PREREQUISITE 2: make sure you are using the right JDK version, not a JRE (JDK 8 for JSweet < v3) and that your JAVA_HOME env variable points to it (${JAVA_HOME}/lib/tools.jar must exist)
 
 To compile the server, use Maven in the project's directory:
 
 ```
-> mvn clean compile
+> mvn clean install
 ```
 
 To run the service under Unix-based OS (would need to be adapted for other OS):
 
 ```
-> ./run.sh
+> java -cp ${JAVA_HOME}/lib/tools.jar:target/jsweet-server.jar org.jsweet.webapi.ServerLauncher
 ```
 
-NOTE: for the JSweet transpiler to work, you will need to make sure that Node.js is installed on the server. For more information, go to https://github.com/cincheo/jsweet.
+# Extend the server with your own libs / classes
 
-# Build and run the client
+In order to compile Java source code that uses external libs without compile-time errors, you can add dependencies in your ``pom.xml``. Your can also simple add source code in the ``src/main/java`` directory of the server.
 
-To compile the client, use Maven in the project's directory:
+# Use the DLite UI to call the server
 
-```
-mvn -P client generate-sources
-```
+In order to test that your compilation server works fine, you can use the simple DLite UI, which is provided within this project.
 
-Start the client (will open ``www/index.html``):
+![UI](screenshot.png)
 
-```
-> firefox <SERVER_URL>
+To use the UI on a local server, follow the steps:
+
+- Make sure that you server is started locally
+- Go to https://plateform.dlite.io
+- Click on "Upload project file"
+- Select the ``www/jsweet-sandbox.dlite`` file
+- Type in / paste Java code on the left and click the ``Transpile`` button
+
+To plug the UI to another server, edit the DLite project and change the address of the HTTP connector.
+
 ```
