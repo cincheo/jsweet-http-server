@@ -1,0 +1,155 @@
+{
+  "applicationModel": {
+    "navbar": {
+      "cid": "navbar",
+      "type": "NavbarView",
+      "brand": "App name",
+      "defaultPage": "index",
+      "navigationItems": [
+        {
+          "pageId": "index",
+          "label": "Index"
+        }
+      ],
+      "eventHandlers": []
+    },
+    "autoIncrementIds": {
+      "TextareaView": 2,
+      "ButtonView": 2,
+      "HttpConnector": 2
+    },
+    "name": "jsweet-demo",
+    "bootstrapStylesheetUrl": "assets/ext/themes/slate.css",
+    "darkMode": true,
+    "versionIndex": 1,
+    "version": "0.0.0"
+  },
+  "roots": [
+    {
+      "cid": "navbar",
+      "type": "NavbarView",
+      "brand": "App name",
+      "defaultPage": "index",
+      "navigationItems": [
+        {
+          "pageId": "index",
+          "label": "Index"
+        }
+      ],
+      "eventHandlers": []
+    },
+    {
+      "cid": "index",
+      "type": "ContainerView",
+      "dataType": "object",
+      "layout": "block",
+      "components": [
+        {
+          "cid": "http-0",
+          "type": "HttpConnector",
+          "dataType": "object",
+          "method": "POST",
+          "eventHandlers": [],
+          "baseUrl": "http://localhost:8580",
+          "path": "transpile",
+          "form": true,
+          "body": "=({\n    javaCode: $d('textarea-0'),\n    tid: $tools.uuid(),\n    tsout: true\n})"
+        },
+        {
+          "cid": "textarea-0",
+          "type": "TextareaView",
+          "dataType": "string",
+          "label": "",
+          "description": "",
+          "field": "",
+          "size": "default",
+          "disabled": false,
+          "placeholder": "",
+          "eventHandlers": [],
+          "codeEditor": true,
+          "mode": "java",
+          "showLineNumbers": true
+        },
+        {
+          "cid": "button-0",
+          "type": "ButtonView",
+          "dataSource": "$parent",
+          "label": "Transpile",
+          "buttonType": "button",
+          "variant": "secondary",
+          "size": "default",
+          "pill": false,
+          "squared": false,
+          "block": false,
+          "disabled": false,
+          "eventHandlers": [
+            {
+              "global": false,
+              "name": "@click",
+              "actions": [
+                {
+                  "targetId": "http-0",
+                  "name": "update",
+                  "description": "Default action",
+                  "condition": ""
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "cid": "textarea-1",
+          "type": "TextareaView",
+          "dataType": "string",
+          "label": "",
+          "description": "",
+          "field": "jsout",
+          "size": "default",
+          "disabled": false,
+          "placeholder": "",
+          "eventHandlers": [],
+          "dataSource": "http-0",
+          "codeEditor": true,
+          "mode": "javascript",
+          "showLineNumbers": true
+        },
+        {
+          "cid": "button-1",
+          "type": "ButtonView",
+          "dataSource": "$parent",
+          "label": "Run",
+          "buttonType": "button",
+          "variant": "secondary",
+          "size": "default",
+          "pill": false,
+          "squared": false,
+          "block": false,
+          "disabled": false,
+          "eventHandlers": [
+            {
+              "global": false,
+              "name": "@click",
+              "actions": [
+                {
+                  "targetId": "$self",
+                  "name": "eval",
+                  "description": "Default action",
+                  "condition": "eval($d('textarea-1'))"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "defaultValue": "={}",
+      "eventHandlers": []
+    },
+    {
+      "cid": "http-1",
+      "type": "HttpConnector",
+      "dataType": "object",
+      "method": "GET",
+      "eventHandlers": []
+    }
+  ]
+}
